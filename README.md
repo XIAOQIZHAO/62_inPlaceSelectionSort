@@ -14,16 +14,23 @@ is done in-place.
 
 0. If the number of the elements in the input triples,
 the time required to run the reigning champ algorithm
-will grow by __________________.
-[Justify, in about 2 sentences.]
+will grow by ___(n-1)/2________.
+Justification:
+Cost to swap two Integers is 2 (constant). Cost to expand is (1+3+9+...+n/3)= (n-1)/2
+
 
 0. If the number of the elements in the input triples,
 the number of times that the reigning champ algorithm
 will be invoked 
-will grow by __________________.
-[Justify, in about 2 sentences.]
+will grow by _______(3n)!-n!___________.
+Justification:
+When there are n elements, the while iterates through n! times. When there are 3n elements, 
+the while iterates through (3n)! times.
+
 
 0. If the number of the elements in the input triples,
 the time required for the selection sort
-will grow by __________________.
-[Justify, in about 2 sentences.]
+will grow by _______2n___________.
+Justification:
+When there are n elements, the while iterates through n times. When there are 3n elements, 
+the while iterates through 3n times.
