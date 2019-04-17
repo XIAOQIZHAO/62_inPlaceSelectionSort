@@ -11,53 +11,98 @@ public class OrderedList_inArraySlots
     implements OrderedList {
 
     private ArrayList<Integer> list_iAS;
-    private int counter;
+    // private int counter;
 
     /** 
       construct order from an unordered ArrayList
      */
     public OrderedList_inArraySlots
             ( ArrayList<Integer> unordered) {
-	Integer saveOriginal;
-	Integer saveNew;
+	// Integer saveOriginal;
+	// Integer saveNew;
 	list_iAS = unordered;
-	int champIndex;
-	for (int i = 0; i < list_iAS.size(); i++){
-	    champIndex = champIndex();
-	    System.out.println(champIndex);
-	    saveOriginal = list_iAS.get(i);
-	    saveNew = list_iAS.get(champIndex);
-	    list_iAS.set(champIndex, saveOriginal);
-	    list_iAS.set(i, saveNew);
-	    counter++;
-        
-        System.out.println( 
-            "current list_iAS" + list_iAS
-          + System.lineSeparator()
-	    + "after " + (i + 1) + " swaps"
-          );
-	}
+	// int champIndex;
+	// for (int i = 0; i < list_iAS.size(); i++){
+	//     champIndex = champIndex();
+	//     System.out.println(champIndex);
+	//     saveOriginal = list_iAS.get(i);
+	//     saveNew = list_iAS.get(champIndex);
+	//     list_iAS.set(champIndex, saveOriginal);
+	//     list_iAS.set(i, saveNew);
+	//     counter++;
+
+	// Iterate through each slot that is to be populated.
+        for( int next = 0
+           ; next < list_iAS.size() -1  // last needs no sort
+           ; next++) {
+
+            // for development and debugging
+            // System.out.println( 
+                // "so far: " + list_iAS 
+              // + " smallest element is at index " + dweebIndex( next) 
+              // + " and has the value " + list_iAS.get( dweebIndex( next)));
+
+              /* Find the next smallest. Swap it into place.
+                 Use SET's convenient feature that it returns
+                 the value that it replaces.
+              */
+            list_iAS.set( next   // set the smallest value to the current spot
+                        , list_iAS.set( dweebIndex( next)
+					, list_iAS.get( next)) // set current value to the spot of the smallest value, return the original smallest at that spot
+                        );
+            }
+       
+	
+        // System.out.println( 
+        //     "current list_iAS" + list_iAS
+        //   + System.lineSeparator()
+	//     + "after " + (i + 1) + " swaps"
+        //   );
+	// }
     }
 
-
-    /** 
+    
+/** 
+      @return the index of the smallest element of list_iAS
+              whose index is >= \startAt,
+              using the reigning champ algorithm.
       helper function for constructor
-      Write good English here, reflecting good thinking.
-      @return the index of the nth smallest Integer in list_iAS, disregarding the  n-1 Integers before it in list_iAS
      */
-     private int champIndex() {
-	 int index = counter; //start from counter, not 0, otherwise
-	 // if nothing is smaller after the current, it returns ele 0
-	 Integer champ = list_iAS.get(counter);
-	 for (int i = counter; i < list_iAS.size(); i++){
-	     if (list_iAS.get(i) < champ){
-		 champ = list_iAS.get(i);
-		 index = i;
-	     }
-	     // System.out.println(champ);
-	 }
-	 return index;
+     private int dweebIndex( int startAt) {
+        // use the starting element as a first guess
+        int dweebAt = startAt;
+        Integer dweeb = list_iAS.get( dweebAt);
+        
+        for( int testAt = startAt +1
+           ; testAt < list_iAS.size()
+           ; testAt++)
+            if( list_iAS.get( testAt).compareTo( dweeb) < 0) {
+                // Found a smaller value. Remember it.
+                dweebAt = testAt;
+                dweeb = list_iAS.get( dweebAt);
+            }
+        return dweebAt;
      }
+    
+
+    // /** 
+    //   helper function for constructor
+    //   Write good English here, reflecting good thinking.
+    //   @return the index of the nth smallest Integer in list_iAS, disregarding the  n-1 Integers before it in list_iAS
+    //  */
+    //  private int champIndex() {
+    // 	 int index = counter; //start from counter, not 0, otherwise
+    // 	 // if nothing is smaller after the current, it returns ele 0
+    // 	 Integer champ = list_iAS.get(counter);
+    // 	 for (int i = counter; i < list_iAS.size(); i++){
+    // 	     if (list_iAS.get(i) < champ){
+    // 		 champ = list_iAS.get(i);
+    // 		 index = i;
+    // 	     }
+    // 	     // System.out.println(champ);
+    // 	 }
+    // 	 return index;
+    //  }
 
 
     // ------ code from previous assignments below here ----
